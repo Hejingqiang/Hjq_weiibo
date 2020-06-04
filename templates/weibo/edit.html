@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>编辑微博</h2>
+<hr>
+
+{% if error %}
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-danger">警告!</h4>
+    <p>{{ error }}</p>
+</div>
+{% endif %}
+
+<form action="/weibo/edit" method="POST">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <textarea  class="form-control" name="content" rows="5">{{ weibo.content }}</textarea>
+        </div>
+    </div>
+
+    <input type="hidden" name="wid" value="{{ weibo.id }}">
+
+    <div class="form-group">
+        <div class="offset-md-10">
+            <button type="submit" class="btn btn-primary">重新发布</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
