@@ -2,6 +2,7 @@ from libs.db import db
 
 
 class User(db.Model):
+    '''用户表'''
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

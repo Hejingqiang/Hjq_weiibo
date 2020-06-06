@@ -3,12 +3,15 @@ from flask_migrate import MigrateCommand, Migrate
 from flask_script import Manager
 
 from User.views import user_bp
+from comment.views import cmt_bp
+from weibo.views import wb_bp
 from libs import config
 from libs.db import db
 from libs.utils import fake_word, fake_sentence
-from weibo.views import wb_bp
+
 
 app = Flask(__name__)
+
 app.config.from_object(config)
 db.init_app(app)
 
@@ -19,6 +22,7 @@ manager.add_command('db', MigrateCommand)
 
 app.register_blueprint(user_bp)
 app.register_blueprint(wb_bp)
+app.register_blueprint(cmt_bp)
 
 
 @app.route('/')
@@ -40,12 +44,12 @@ def fake():
             nickname=fake_word().title(),
             gender=random.choice(['male', 'female', 'unknow']),
             city=random.choice(['北京', '上海', '深圳']),
-            avatar='/static/upload/default',
+            avatar='/static/upload/125.png',
             birthday='1996-06-13',
             bio=fake_sentence(),
         )
         users.append(user)
-    db.session.add_all()
+    db.session.add_all(users)
     db.session.commit()
 
     weibo_list = []
