@@ -4,11 +4,10 @@ from flask_script import Manager
 
 from User.views import user_bp
 from comment.views import cmt_bp
-from weibo.views import wb_bp
 from libs import config
 from libs.db import db
 from libs.utils import fake_word, fake_sentence
-
+from weibo.views import wb_bp
 
 app = Flask(__name__)
 

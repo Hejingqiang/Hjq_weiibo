@@ -50,6 +50,6 @@ def delete():
         else:
             return redirect(f'/weibo/show?wid={cmt.wid}')
     else:
-        return render_template(f'/weibo/show?wid={cmt.wid}&error=您没有权限删除别人的评论')
+        return redirect(f'/weibo/show?wid={cmt.wid}&error=您没有权限删除别人的评论')
 
 

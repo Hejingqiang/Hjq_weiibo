@@ -107,7 +107,9 @@ def weibo_list():
     weibo_list = Weibo.query.order_by(Weibo.updated.desc()).limit(PER_PAGE).offset(offset)
     total = Weibo.query.count()
     n_page = ceil(total / PER_PAGE)
-    return render_template('/weibo/index.html', weibo_list=weibo_list, n_page=n_page, page=page)
+    min_page = (page - 5) if page > 5 else 1
+    max_page = min((page + 5), n_page)
+    return render_template('/weibo/index.html', weibo_list=weibo_list, min_page=min_page, max_page=max_page,page=page)
 
 #分页器：设置每页数目 偏移量 总页数 总条数 当前页
 

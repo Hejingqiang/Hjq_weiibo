@@ -13,3 +13,18 @@ class User(db.Model):
     avatar = db.Column(db.String(128))
     birthday = db.Column(db.Date, default='2000-01-01')
     bio = db.Column(db.Text())
+
+
+class Follow(db.Model):
+    '''关注表'''
+    __tablename__ = 'follow'
+
+    uid = db.Column(db.Integer, primary_key=True)
+    fid = db.Column(db.Integer, primary_key=True)
+
+    @classmethod
+    def  is_followed(cls, uid, fid):
+        '''是否关注对方'''
+        query_result = cls.query.filter_by(uid=uid,fid=fid).exists()
+        return db.session.query(query_result).scalar()
+

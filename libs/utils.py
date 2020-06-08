@@ -29,7 +29,7 @@ def check_password(password, safe_password):
 
 def save_avatar(nickname, avatar):
     '''头像保存到硬盘'''
-    base_dir = os.path.dir(os.path.abspath(__name__))
+    base_dir = os.path.dirname(os.path.abspath(__name__))
     filepath = os.path.join(base_dir, 'static', 'upload', nickname)
     avatar.save(filepath)
     avatar_url = f'/static/upload/{nickname}'
@@ -39,7 +39,7 @@ def save_avatar(nickname, avatar):
 def login_required(view_func):
     @wraps(view_func)
     def wrapper(*args, **kwargs):
-        if isinstance(session['uid'], int):
+        if isinstance(session.get('uid'), int):
             return  view_func(*args, **kwargs)
         else:
             return redirect('/user/login')
